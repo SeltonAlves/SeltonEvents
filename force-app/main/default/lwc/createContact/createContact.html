@@ -1,0 +1,88 @@
+<template>
+  <lightning-layout>
+
+    <lightning-layout-item> 
+       <div class="slds-var-p-around_small">
+          <lightning-input type="name" label="Fist Name" name="FirstName" onchange={handleValue}  required></lightning-input>
+            </div>
+              <div class="slds-var-p-around_small">
+                <lightning-input 
+                type="tel" 
+                label="Phone" 
+                name="Phone" 
+                message-when-pattern-mismatch="Phone number is not valid"
+                pattern="^\(\d{2}\)\s\d\s\d{4}-\d{4}$"
+                placeholder="(00) 00000-0000"
+                onchange={handleValue}
+                required
+              ></lightning-input>
+        </div>
+
+    </lightning-layout-item>
+
+    <lightning-layout-item >
+      <div class="slds-var-p-around_small">
+        <lightning-input type="name" label="Last Name" name="LastName" onchange={handleValue} required></lightning-input>
+      </div>
+
+      <div class="slds-var-p-around_small">
+        <lightning-input 
+        type="tel" 
+        label="Home Phone" 
+        name="HomePhone" 
+        onchange={handleValue}
+        message-when-pattern-mismatch="Phone number is not valid"
+        ></lightning-input>
+      </div>
+    </lightning-layout-item>
+
+    <lightning-layout-item>
+
+      <div class="slds-var-p-around_small">
+        <lightning-input 
+          type="date" 
+          name="Birthdate" 
+          label="Enter Birth date"
+          onchange={handleValue}  
+          required
+        ></lightning-input>
+      </div>
+
+      <div class="slds-var-p-around_small">
+        <lightning-combobox
+        name="gender"
+        onchange={handleValue}
+        label="Gender"
+        placeholder="Select Gender"
+        options={options}>
+        </lightning-combobox>
+      </div>
+
+    </lightning-layout-item>
+    
+    <lightning-layout-item>
+      
+      <div class="slds-var-p-around_small">
+        <lightning-input type="email" label="Email address" name="Email"  onchange={handleValue} required></lightning-input>
+      </div>
+
+    </lightning-layout-item>
+
+  </lightning-layout>
+
+  <lightning-layout class="slds-var-p-horizontal_small">
+    <lightning-input-address
+    address-label="Address"
+    street-label="Street"
+    city-label="City"
+    country-label="Country"
+    province-label="Province"
+    postal-code-label="PostalCode"
+    field-level-help="" 
+    onchange={handleAddressChange} 
+    required>
+  </lightning-input-address>
+  </lightning-layout>
+  <lightning-button name="teste" label="vdvdf" onclick={create}></lightning-button>
+
+</template>
