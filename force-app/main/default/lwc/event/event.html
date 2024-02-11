@@ -1,96 +1,94 @@
 <template>
-
-    <lightning-card icon-name="standard:account" variant="base">
-      <div slot="title">
-        Criação de Evento
-      </div>
-      <div slot="actions">
-    
-      </div>
-      <div slot="footer" class="slds-grid slds-grid_align-end">
-        <div class="slds-grid slds-grid_align-end">
-            <lightning-button class="slds-var-m-right_medium" variant="destructive-text" label="Refresh" ></lightning-button>
-            <lightning-button variant="brand" label="Save"></lightning-button>
+  <lightning-layout>
+    <lightning-layout-item>
+        <div class="slds-var-p-around_small">
+          <lightning-input 
+          type="name"
+          label="Nome Do Evento"
+            name="Name"
+            onchange={handleValue}
+            placeholder="Insira o Nome Do Evento"
+            required></lightning-input>
         </div>
 
-      </div>
-      <div>
-        <!-- Card Body  -->
-        
-        <lightning-layout>
-            <lightning-layout-item  size="4">
-                <div class="slds-var-p-around_small">
-                        <lightning-input 
-                        type="name"
-                        label="Nome Do Evento"
-                        name="Name"
-                        onchange={handleValue}
-                        placeholder="Insira o Nome Do Evento"
-                        required>
-                        </lightning-input>
-                </div>
-            </lightning-layout-item> 
+        <div class="slds-var-p-around_small">
+          <lightning-input 
+            type="datetime" 
+            name="start_date__c" 
+            label="Enter a date/time value" 
+            onchange={handleValueDate}
+            required
+          ></lightning-input>
+        </div>
+
+    </lightning-layout-item> 
     
-            <lightning-layout-item size="4">
-                <div class="slds-var-p-around_small">
-                    <lightning-input 
-                      type="email" 
-                      label="Email Do Organizador"
-                      required="Insira o Email para contato."
-                      placeholder="Ex: xxxxx@xxx.com"
-                    ></lightning-input>
-                </div>
-            </lightning-layout-item>
-    
-            <lightning-layout-item>
-                <div class="slds-var-p-around_small">
-                    <lightning-input 
-                      type="tel" 
-                      label="Telefone Do Organizador" 
-                      name="phone1"
-                      placeholder="(xx) xxxxx-xxxx" 
-                    ></lightning-input>
-                </div>
-            </lightning-layout-item>           
-        </lightning-layout>
-    
-        <lightning-input 
-        class="slds-var-p-around_small"
+    <lightning-layout-item>
+        <div class="slds-var-p-around_small">
+          <lightning-input 
+          name="email__c"
+          type="email" 
+          label="Email Do Organizador"
+          onchange={handleValue}
+          required="Insira o Email para contato."
+          placeholder="Ex: xxxxx@xxx.com">
+          </lightning-input>
+        </div>
+
+        <div class="slds-var-m-top_x-large slds-var-p-horizontal_small">
+          <lightning-input 
+          label="Insira o Banner"
+          accept='.png, .svg , .jpg' 
+          onchange={handleAddFiles} 
           type="file"
-          label="Banner Do Evento" 
-          accept="image/png, image/jpg, image/svg"
-          required>
-        </lightning-input>
-    
-        <lightning-textarea 
-        class="slds-var-p-around_small"         
-          max-length="1000"
-          name="inputName" 
-          label="Faça uma descrição do evento." 
-          placeholder="Capacidade máxima de 1000 caracteres"
-          variant="standard"
-        ></lightning-textarea>
-    
-        <lightning-input-address
-        class="slds-var-p-around_small"
-          address-label="Endereço"
-          street-label="Rua"
-          city-label="Cidade"
-          country-label="País"
-          province-label="Estado"
-          postal-code-label="Cep"
-          postal-code="53700-000"
-          city="Itapissuma"
-          country="Brasil"
-          province={valueProvince}
-          field-level-help="Você deve Inserir todas as informações do endereço." 
-          province-options={provinceOptions}
-          onchange={handleChange} 
           required
-        ></lightning-input-address>
+          >
+        </lightning-input>
+          <p>{fileName}</p>
+        </div>
 
-
-      </div>
-    </lightning-card>
-
+    </lightning-layout-item>
+    
+    <lightning-layout-item>
+        <div class="slds-var-p-around_small">
+          <lightning-input 
+            type="tel" 
+            label="Telefone Do Organizador" 
+            name="Phone__c"
+            pattern="^\(\d{2}\)\s\d\s\d{4}-\d{4}$"
+            placeholder="(xx) xxxxx-xxxx" 
+            onchange={handleMaskPhone}>
+          </lightning-input>
+        </div>
+    </lightning-layout-item>
+  </lightning-layout>
+  
+  <lightning-textarea 
+    class="slds-var-p-around_small"         
+    max-length="1000"
+    name="Description__c" 
+    label="Faça uma descrição do evento." 
+    placeholder="Capacidade máxima de 1000 caracteres"
+    variant="standard"
+    onchange={handleValue}
+    required>
+  </lightning-textarea>
+    
+  <lightning-input-address
+    class="slds-var-p-around_small"
+    address-label="Endereço"
+    street-label="Rua"
+    city-label="Cidade"
+    country-label="País"
+    province-label="Estado"
+    postal-code-label="Cep"
+    postal-code="53700-000"
+    city="Itapissuma"
+    country="BR"
+    province={valueProvince}
+    field-level-help="Você deve Inserir todas as informações do endereço." 
+    province-options={provinceOptions}
+    onchange={handleAddress}
+    required>
+  </lightning-input-address>
 </template>
