@@ -14,7 +14,12 @@
         ></lightning-button>
       </div>
       <div>
-        <c-event onsendvalue={handleValue}></c-event>
+        <template if:true={stage}>
+          <c-event onsendvalue={handleValueId}></c-event>
+        </template>
+        <template if:false={stage}>
+          <c-stock onpassvalue={handleValueStockAndDateDrop} ></c-stock>
+        </template>
       </div>
     </lightning-card>
 </template>

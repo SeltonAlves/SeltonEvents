@@ -1,0 +1,71 @@
+<template>
+
+    <h3 class="slds-text-title_bold slds-var-m-horizontal_small slds-var-m-top_large">Datas De Drops</h3>
+
+    <template for:each={inputs} for:index="f" for:item="item">
+        <lightning-layout 
+          key={f.id}
+          vertical-align="start" 
+          >
+    
+          <lightning-layout-item padding="horizontal-small">
+            <lightning-input 
+              type="date" 
+              name="dateStart" 
+              label="Período Inicial"
+              onchange={handleInputsForEach}
+              placeholder="Clique no Calendário ao lado!"
+              data-index={f} 
+              required
+            ></lightning-input>
+          </lightning-layout-item>
+          
+          <lightning-layout-item padding="horizontal-small">
+            <lightning-input 
+              type="date" 
+              name="dateFinish" 
+              label="Período Final"
+              onchange={handleInputsForEach}
+              placeholder="Clique no Calendário ao lado!"
+              data-index={f} 
+              required
+            ></lightning-input>
+          </lightning-layout-item>
+
+          <lightning-layout-item padding="horizontal-small">
+            <lightning-input 
+              type="number" 
+              name="valueDrop" 
+              label="Valor" 
+              formatter="currency"
+              onchange={handleInputsForEach}
+              data-index={f}
+              placeholder="Insira o Valor Do Drop" 
+              required
+            ></lightning-input>
+          </lightning-layout-item>
+
+          <lightning-layout-item>
+            <div class="slds-var-m-around_large">
+              <template if:true={item.canDelete}>
+                <lightning-button
+                  variant="destructive"
+                  onclick={deleteInputs} 
+                  icon-name="utility:delete"
+                  data-index={f}
+                ></lightning-button>
+              </template>
+            </div>
+          </lightning-layout-item>
+    
+        </lightning-layout>
+    </template> 
+
+    <div class="slds-var-m-around_small">
+        <lightning-button 
+          variant="brand-outline"
+          label="Adicione Mais Datas" 
+          onclick={createInputsDrop} 
+        ></lightning-button>
+    </div>
+</template>

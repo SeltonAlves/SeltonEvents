@@ -1,0 +1,60 @@
+<template>
+  <lightning-card>
+    <lightning-layout>
+
+      <lightning-layout-item padding="horizontal-small">
+        <div>
+            <lightning-input 
+              name="Name"
+              type="text"
+              label="Nome Da Camisa"
+              placeholder="Digite o Nome Da Camisa"
+              required
+              onchange={handleChange}
+            ></lightning-input>
+        </div>
+      </lightning-layout-item>
+
+      <lightning-layout-item padding="horizontal-small">
+        <div>
+          <lightning-combobox
+            name="Size"
+            label="Tamanho"
+            placeholder="Select Progress"
+            options={sizeOptions}
+            onchange={handleSize}
+            required
+            >
+          </lightning-combobox>
+        </div>
+      </lightning-layout-item>
+
+      <lightning-layout-item padding="horizontal-small">
+        <div>
+          <lightning-input 
+            type="number" 
+            name="Quantity" 
+            label="Quantidade" 
+            formatter="decimal"
+            placeholder="Digite a Quantidade de Peças"
+            required
+            onchange={handleChange}
+          ></lightning-input>
+        </div>
+      </lightning-layout-item>
+
+      <lightning-layout-item padding="horizontal-small">
+        <div class="buttonAdd">
+          <lightning-button 
+            variant="brand"
+            label="Adicionar" 
+            onclick={handleClick} 
+          ></lightning-button>
+        </div>
+      </lightning-layout-item>
+    </lightning-layout>
+
+    <c-add-stock stock={stock} onvaluesotck = {handleValueStock}></c-add-stock>
+    <c-inputs-drop onvaluedate = {handleValueDrop}></c-inputs-drop>
+  </lightning-card>  
+</template>

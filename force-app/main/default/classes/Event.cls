@@ -1,7 +1,10 @@
 public with sharing class Event {
 
     @AuraEnabled(cacheable=false)
-    public static Boolean createEvent(String eventJson){
+    public static Id createEvent(String eventJson){
+
+        Map<String, Object> result = new Map<String, Object>();
+
         try {
             Map<String, Object> eventMap = (Map<String, Object>) JSON.deserializeUntyped(eventJson);
             
@@ -26,10 +29,11 @@ public with sharing class Event {
             String base64Content = (String) ((Map<String,Object>) eventMap.get('Banner')).get('fileContent');
 
 
-            return saveFile(newEvent.Id, fileName, base64Content);
+            saveFile(newEvent.Id, fileName, base64Content);
+            return newEvent.Id;
 
         } catch (Exception e) {
-            return false;
+            return null;
         }
     }
 

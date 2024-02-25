@@ -92,13 +92,13 @@ export default class Event extends LightningElement {
             ).then((result) => {
                 if (result) {
                     this.handleSendData(result);
-                } else {
+                }
+                else {
                     this.handleToast(this.title = 'Error', this.message = 'Tente Novamente, em outro período.', this.variant = 'error');
                     this.handleSendData(result);
                 }
             }).catch((error) => {
                 this.handleToast(this.title = 'Aviso!', this.message = 'Por Favor, repasse todas as informações. ' + error, this.variant = 'info');
-                this.handleSendData(false);
             })
         }
     }
@@ -112,16 +112,13 @@ export default class Event extends LightningElement {
         }));
     }
 
-    handleSendData(value){
-        if (value) {
-            const dataValue = new CustomEvent('sendvalue',{
-                detail:{
-                    data: value
-                }
-            });
-            this.dispatchEvent(dataValue);
-        }
-
+    handleSendData(value) {
+        const dataValue = new CustomEvent('sendvalue', {
+            detail: {
+                data: value
+            }
+        });
+        this.dispatchEvent(dataValue);
     }
 
 }
