@@ -18,9 +18,9 @@
       <lightning-layout-item padding="horizontal-small">
         <div>
           <lightning-combobox
-            name="Size"
+            name="Size__c"
             label="Tamanho"
-            placeholder="Select Progress"
+            placeholder="Selecione o Tamanho"
             options={sizeOptions}
             onchange={handleSize}
             required
@@ -33,10 +33,10 @@
         <div>
           <lightning-input 
             type="number" 
-            name="Quantity" 
+            name="Quantity__c" 
             label="Quantidade" 
             formatter="decimal"
-            placeholder="Digite a Quantidade de Peças"
+            placeholder="Digite a Quantidade"
             required
             onchange={handleChange}
           ></lightning-input>
@@ -44,9 +44,9 @@
       </lightning-layout-item>
 
       <lightning-layout-item padding="horizontal-small">
-        <div class="buttonAdd">
+        <div class="slds-var-m-top_large">
           <lightning-button 
-            variant="brand"
+            variant="brand-outline"
             label="Adicionar" 
             onclick={handleClick} 
           ></lightning-button>
@@ -54,7 +54,7 @@
       </lightning-layout-item>
     </lightning-layout>
 
-    <c-add-stock stock={stock} onvaluesotck = {handleValueStock}></c-add-stock>
+    <c-add-stock stock={stockItemList} onvaluesotck = {handleValueStock}></c-add-stock>
     <c-inputs-drop onvaluedate = {handleValueDrop}></c-inputs-drop>
   </lightning-card>  
 </template>

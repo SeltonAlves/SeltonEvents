@@ -1,10 +1,14 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api } from 'lwc';
+import createStock from '@salesforce/apex/Stock.createStock';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class Stock extends LightningElement {
 
-    stock = [];
+    stockItemList = [];
     item = {};
-    dateDrop =[];
+    dateDropList = [];
+    @api
+    id;
 
 
     get sizeOptions() {
@@ -34,36 +38,57 @@ export default class Stock extends LightningElement {
         }, true);
         if (input) {
             const newItem = {
-                id: this.stock.length,
+                id: this.stockItemList.length,
                 Name: this.item.Name,
-                Size: this.item.Size,
-                Quantity: this.item.Quantity
+                Size__c: this.item.Size__c,
+                Quantity__c: this.item.Quantity__c
             };
-            this.stock = [...this.stock, newItem];
-            this.handleSendData();
-            
+            this.stockItemList = [...this.stockItemList, newItem];
+
         }
 
     }
 
-    handleValueStock(event){
-        this.stock = event.detail.data;
+    handleValueStock(event) {
+        this.stockItemList = event.detail.data;
     }
 
-    handleValueDrop(event){
-        this.dateDrop = event.detail.date;
-        this.handleSendData();
+    handleValueDrop(event) {
+        this.dateDropList = event.detail.date;
     }
 
-    handleSendData(){
-        if (this.stock && this.dateDrop) {
-            const newEvent = new CustomEvent('passvalue',{
-                detail:{
-                    stock: this.stock,
-                    dateDrop: this.dateDrop
-                }
+    @api
+    handleSaveStock() {
+        if (this.dateDropList.length > 0 && this.stockItemList.length > 0) {
+
+            const stockItem = this.stockItemList.map(item => {
+                const { id, ...newStock } = item;
+                return newStock;
             });
-            this.dispatchEvent(newEvent);
+
+            const dateDrop = this.dateDropList.map(item => {
+                const { id, canDelete, ...newDate } = item;
+                return newDate;
+            });
+
+            createStock({ id:this.id, dateDrop: dateDrop, stockItem: stockItem }).then((result) => {
+                console.log(result);
+            }).catch((err) => {
+                console.log(err);
+            });
+
+
+
+        } else {
+            this.handleToast('Aviso!', 'Preencha todos os campos, antes de finalizar!', 'warning')
         }
+    }
+
+    handleToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({
+            title: title,
+            message: message,
+            variant: variant
+        }));
     }
 }

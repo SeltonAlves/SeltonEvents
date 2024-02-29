@@ -1,19 +1,15 @@
 public with sharing class Stock {
 
     @AuraEnabled(cacheable = false)
-    public static Boolean createStock(Id idEvent,String stockJson){
+    public static Boolean createStock(Id id,List<Date_Drop__c> dateDrop, List<Stock_Item__c> stockItem){
         try {
             
-            Map<String, Object> mapJson = (Map<String,Object>) JSON.deserializeUntyped(stockJson);
-            List<Date_Drop__c> dateDrops = (List<Date_Drop__c>) mapJson.get('dateDrop');
-            List<Stock_item__c> stockItems = (List<Stock_item__c>) mapJson.get('itemStock');
-
             Stock__c stockNew = new Stock__c();
-            stockNew.Party__c = idEvent;
+            stockNew.Party__c = id;
             insert stockNew;
 
-            createDateDrop(dateDrops, stockNew.Id);
-            createStockItems(stockItems, stockNew.Id);
+            createDateDrop(dateDrop, stockNew.Id);
+            createStockItems(stockItem, stockNew.Id);
             
             return true;
 
@@ -24,13 +20,12 @@ public with sharing class Stock {
 
     private static void createDateDrop (List<Date_Drop__c> dateDrop, Id stockId){
         try {
-            for (Object obj : dateDrop) {
-                Map<String, Object> dateDrops = (Map<String, Object>) obj;
+            for (Date_Drop__c obj : dateDrop) {
                 Date_Drop__c dateDropNew = new Date_Drop__c();
 
-                dateDropNew.Value_Drop__c = (Decimal) dateDrops.get('valueDrop');
-                dateDropNew.Date_Start__c = Date.valueOf((String) dateDrops.get('dateStart'));
-                dateDropNew.Date_Finish__c = Date.valueOf((String) dateDrops.get('dateFinish'));
+                dateDropNew.Value_Drop__c = obj.Value_Drop__c;
+                dateDropNew.Date_Start__c = obj.date_Start__c;
+                dateDropNew.Date_Finish__c = obj.date_Finish__c;
                 dateDropNew.Stock__c = stockId;
 
                 insert dateDropNew;
@@ -40,15 +35,14 @@ public with sharing class Stock {
         }
     }
 
-    private static void createStockItems(List<Stock_item__c> stockItems, Id stockId){
+    private static void createStockItems(List<Stock_Item__c> stockItems, Id stockId){
         try {
-            for (Object obj : stockItems) {
-
-                Map<String, Object> stockItem = (Map<String,Object>) obj;
+            for (Stock_Item__c obj : stockItems) {
                 Stock_item__c  stockItemNew = new Stock_item__c ();
 
-                stockItemNew.Quantity__c = (Decimal) stockItem.get('Quantity');
-                stockItemNew.Size__c = (String) stockItem.get('Size__c');
+                stockItemNew.Quantity__c = obj.Quantity__c;
+                stockItemNew.Size__c = obj.Size__c;
+                stockItemNew.Name = obj.Name;
                 stockItemNew.Stock__c = stockId;
 
                 insert stockItemNew;

@@ -5,8 +5,9 @@ export default class InputsDrop extends LightningElement {
     @track
     inputs = [{
         id: Date.now(),
-        date: undefined,
-        valueDrop: 0,
+        Date_Start__c: undefined,
+        Date_Finish__c: undefined,
+        Value_Drop__c: 0,
         canDelete: false
     }];
 
@@ -14,7 +15,7 @@ export default class InputsDrop extends LightningElement {
         const index = event.target.dataset.index;
         const name = event.target.name;
         this.inputs[index][name] = event.detail.value;
-        if (this.inputs[index].dateStart && this.inputs[index].dateFinish && this.inputs[index].valueDrop !== 0) {
+        if (this.inputs[index].Date_Start__c && this.inputs[index].Date_Finish__c && this.inputs[index].Value_Drop__c !== 0) {
             this.handleSend();
         }
     }
@@ -22,8 +23,9 @@ export default class InputsDrop extends LightningElement {
     createInputsDrop() {
         const newInputs = {
             id: Date.now(),
-            date: undefined,
-            valueDrop: 0,
+            dateStart__c: undefined,
+            dateFinish__c: undefined,
+            valueDrop__c: 0,
             canDelete: true
         };
 
@@ -37,6 +39,7 @@ export default class InputsDrop extends LightningElement {
     }
 
     handleSend() {
+        console.log('c' + this.inputs);
         const value = new CustomEvent('valuedate', {
             detail: {
                 date: this.inputs

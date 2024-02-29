@@ -1,14 +1,14 @@
 <template>
     <lightning-card icon-name="standard:account" variant="base">
       <div slot="title">
-          Card Title
+          Criação De Evento e Inventário
       </div>
       <div slot="actions">
-    
+        <p>{part}</p>
       </div>
       <div slot="footer" class="slds-grid slds-grid_align-end">
         <lightning-button 
-          variant="success"
+          variant="brand"
           label="Próximo" 
           onclick={handleClick} 
         ></lightning-button>
@@ -18,7 +18,7 @@
           <c-event onsendvalue={handleValueId}></c-event>
         </template>
         <template if:false={stage}>
-          <c-stock onpassvalue={handleValueStockAndDateDrop} ></c-stock>
+          <c-stock id={idEvent}></c-stock>
         </template>
       </div>
     </lightning-card>

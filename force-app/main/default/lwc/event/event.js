@@ -7,6 +7,7 @@ export default class Event extends LightningElement {
 
     event = {};
     valueProvince = this.provinceOptions.find(option => option.label === 'Pernambuco').value;
+    valueCountry = this.countryOptions.find(option => option.label === 'Brasil').value;
     fileName;
 
     get provinceOptions() {
@@ -41,6 +42,11 @@ export default class Event extends LightningElement {
         ];
     }
 
+    get countryOptions(){
+        return[
+            {label:'Brasil' , value:'BR'}
+        ]
+    }
 
     handleValue(event) {
         this.event[event.target.name] = event.target.value;
@@ -94,11 +100,10 @@ export default class Event extends LightningElement {
                     this.handleSendData(result);
                 }
                 else {
-                    this.handleToast(this.title = 'Error', this.message = 'Tente Novamente, em outro período.', this.variant = 'error');
-                    this.handleSendData(result);
+                    this.handleToast('Error','Tente Novamente, em outro período.','error');
                 }
             }).catch((error) => {
-                this.handleToast(this.title = 'Aviso!', this.message = 'Por Favor, repasse todas as informações. ' + error, this.variant = 'info');
+                this.handleToast('Aviso!',error,'info');
             })
         }
     }

@@ -11,8 +11,8 @@ export default class AddStock extends LightningElement {
 
     columns = [
         { label: 'Nome', fieldName: 'Name' },
-        { label: 'Tamanho', fieldName: 'Size' },
-        { label: 'Quantidade', fieldName: 'Quantity' },
+        { label: 'Tamanho', fieldName: 'Size__c' },
+        { label: 'Quantidade', fieldName: 'Quantity__c' },
         { type: 'action', typeAttributes: { rowActions: this.getRowActions, menuAlignment: 'auto' } }
     ];
 
@@ -39,7 +39,7 @@ export default class AddStock extends LightningElement {
         }
     }
 
-    
+
     handleSendData() {
         const dataValue = new CustomEvent('valuesotck', {
             detail: {

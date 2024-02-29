@@ -67,9 +67,8 @@
     class="slds-var-p-around_small"         
     max-length="1000"
     name="Description__c" 
-    label="Faça uma descrição do evento." 
-    placeholder="Capacidade máxima de 1000 caracteres"
-    variant="standard"
+    label="Descrição Do Evento" 
+    placeholder="Faça uma breve descrição do evento."
     onchange={handleValue}
     required>
   </lightning-textarea>
@@ -84,10 +83,11 @@
     postal-code-label="Cep"
     postal-code="53700-000"
     city="Itapissuma"
-    country="BR"
+    country={valueCountry}
     province={valueProvince}
     field-level-help="Você deve Inserir todas as informações do endereço." 
     province-options={provinceOptions}
+    country-options={countryOptions}
     onchange={handleAddress}
     required>
   </lightning-input-address>
