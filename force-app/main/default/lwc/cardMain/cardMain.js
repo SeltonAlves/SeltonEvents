@@ -3,9 +3,8 @@ import { LightningElement, track } from 'lwc';
 export default class CardMain extends LightningElement {
 
     @track
-    stage = false;
+    stage = true;
     idEvent;
-    part = this.stage === true ? "P/1" : "P/2";
 
     handleClick() {
         if (this.stage) {
@@ -18,6 +17,10 @@ export default class CardMain extends LightningElement {
     handleValueId(event) {
         this.idEvent = event.detail.data
         this.stage = false;
+    }
+
+    handleValueStage(event){
+        this.stage = event.detail.stage;
     }
 
 }

@@ -3,7 +3,7 @@
     <fullName>Date_Start__c</fullName>
     <externalId>false</externalId>
     <label>Date Start</label>
-    <required>false</required>
+    <required>true</required>
     <trackTrending>false</trackTrending>
     <type>Date</type>
 </CustomField>

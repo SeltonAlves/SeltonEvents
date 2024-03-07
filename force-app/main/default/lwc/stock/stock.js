@@ -4,12 +4,12 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class Stock extends LightningElement {
 
+    @api
+    id;
     stockItemList = [];
     item = {};
     dateDropList = [];
-    @api
-    id;
-
+    isLoading = false;
 
     get sizeOptions() {
         return [
@@ -41,7 +41,7 @@ export default class Stock extends LightningElement {
                 id: this.stockItemList.length,
                 Name: this.item.Name,
                 Size__c: this.item.Size__c,
-                Quantity__c: this.item.Quantity__c
+                Quantity__c: Number(this.item.Quantity__c)
             };
             this.stockItemList = [...this.stockItemList, newItem];
 
@@ -61,24 +61,34 @@ export default class Stock extends LightningElement {
     handleSaveStock() {
         if (this.dateDropList.length > 0 && this.stockItemList.length > 0) {
 
+            this.isLoading = true;
+
             const stockItem = this.stockItemList.map(item => {
                 const { id, ...newStock } = item;
                 return newStock;
             });
+            console.log(JSON.stringify(stockItem));
 
             const dateDrop = this.dateDropList.map(item => {
                 const { id, canDelete, ...newDate } = item;
                 return newDate;
             });
 
-            createStock({ id:this.id, dateDrop: dateDrop, stockItem: stockItem }).then((result) => {
+            console.log(JSON.stringify(dateDrop));
+
+            this.id = this.id.split("-")[0]
+
+
+            createStock({ id: this.id, dateDrop: dateDrop, stockItem: stockItem }).then((result) => {
                 console.log(result);
+                if (result) {
+                    this.isLoading = false;
+                    this.handleSendStage(result);
+                }
             }).catch((err) => {
-                console.log(err);
+                this.isLoading = false;
+                this.handleToast('ERROR', 'Tente Novamente mais tarde! ', 'error');
             });
-
-
-
         } else {
             this.handleToast('Aviso!', 'Preencha todos os campos, antes de finalizar!', 'warning')
         }
@@ -90,5 +100,14 @@ export default class Stock extends LightningElement {
             message: message,
             variant: variant
         }));
+    }
+
+    handleSendStage(value) {
+        const newEvent = CustomEvent('sendvalue', {
+            detail: {
+                stage: value
+            }
+        });
+        this.dispatchEvent(newEvent);
     }
 }

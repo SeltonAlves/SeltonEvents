@@ -1,94 +1,105 @@
 <template>
-  <lightning-layout>
-    <lightning-layout-item>
-        <div class="slds-var-p-around_small">
-          <lightning-input 
-          type="name"
-          label="Nome Do Evento"
-            name="Name"
-            onchange={handleValue}
-            placeholder="Insira o Nome Do Evento"
-            required></lightning-input>
-        </div>
-
-        <div class="slds-var-p-around_small">
-          <lightning-input 
-            type="datetime" 
-            name="start_date__c" 
-            label="Enter a date/time value" 
-            onchange={handleValueDate}
-            required
-          ></lightning-input>
-        </div>
-
-    </lightning-layout-item> 
-    
-    <lightning-layout-item>
-        <div class="slds-var-p-around_small">
-          <lightning-input 
-          name="email__c"
-          type="email" 
-          label="Email Do Organizador"
-          onchange={handleValue}
-          required="Insira o Email para contato."
-          placeholder="Ex: xxxxx@xxx.com">
-          </lightning-input>
-        </div>
-
-        <div class="slds-var-m-top_x-large slds-var-p-horizontal_small">
-          <lightning-input 
-          label="Insira o Banner"
-          accept='.png, .svg , .jpg' 
-          onchange={handleAddFiles} 
-          type="file"
-          required
-          >
-        </lightning-input>
-          <p>{fileName}</p>
-        </div>
-
-    </lightning-layout-item>
-    
-    <lightning-layout-item>
-        <div class="slds-var-p-around_small">
-          <lightning-input 
-            type="tel" 
-            label="Telefone Do Organizador" 
-            name="Phone__c"
-            pattern="^\(\d{2}\)\s\d\s\d{4}-\d{4}$"
-            placeholder="(xx) xxxxx-xxxx" 
-            onchange={handleMaskPhone}>
-          </lightning-input>
-        </div>
-    </lightning-layout-item>
-  </lightning-layout>
+  <template if:true={isLoading}>
+    <div class="slds-var-p-around_large">
+      <lightning-spinner 
+        alternative-text="Loading" 
+        size="large"
+        variant="brand"
+      ></lightning-spinner>
+    </div>
+  </template>
+  <template if:false={isLoading}>
+    <lightning-layout>
+      <lightning-layout-item>
+          <div class="slds-var-p-around_small">
+            <lightning-input 
+            type="name"
+            label="Nome Do Evento"
+              name="Name"
+              onchange={handleValue}
+              placeholder="Insira o Nome Do Evento"
+              required></lightning-input>
+          </div>
   
-  <lightning-textarea 
-    class="slds-var-p-around_small"         
-    max-length="1000"
-    name="Description__c" 
-    label="Descrição Do Evento" 
-    placeholder="Faça uma breve descrição do evento."
-    onchange={handleValue}
-    required>
-  </lightning-textarea>
-    
-  <lightning-input-address
-    class="slds-var-p-around_small"
-    address-label="Endereço"
-    street-label="Rua"
-    city-label="Cidade"
-    country-label="País"
-    province-label="Estado"
-    postal-code-label="Cep"
-    postal-code="53700-000"
-    city="Itapissuma"
-    country={valueCountry}
-    province={valueProvince}
-    field-level-help="Você deve Inserir todas as informações do endereço." 
-    province-options={provinceOptions}
-    country-options={countryOptions}
-    onchange={handleAddress}
-    required>
-  </lightning-input-address>
+          <div class="slds-var-p-around_small">
+            <lightning-input 
+              type="datetime" 
+              name="start_date__c" 
+              label="Enter a date/time value" 
+              onchange={handleValueDate}
+              required
+            ></lightning-input>
+          </div>
+  
+      </lightning-layout-item> 
+      
+      <lightning-layout-item>
+          <div class="slds-var-p-around_small">
+            <lightning-input 
+            name="email__c"
+            type="email" 
+            label="Email Do Organizador"
+            onchange={handleValue}
+            required="Insira o Email para contato."
+            placeholder="Ex: xxxxx@xxx.com">
+            </lightning-input>
+          </div>
+  
+          <div class="slds-var-m-top_x-large slds-var-p-horizontal_small">
+            <lightning-input 
+            label="Insira o Banner"
+            accept='.png, .svg , .jpg' 
+            onchange={handleAddFiles} 
+            type="file"
+            required
+            >
+          </lightning-input>
+            <p>{fileName}</p>
+          </div>
+  
+      </lightning-layout-item>
+      
+      <lightning-layout-item>
+          <div class="slds-var-p-around_small">
+            <lightning-input 
+              type="tel" 
+              label="Telefone Do Organizador" 
+              name="Phone__c"
+              pattern="^\(\d{2}\)\s\d\s\d{4}-\d{4}$"
+              placeholder="(xx) xxxxx-xxxx" 
+              onchange={handleMaskPhone}>
+            </lightning-input>
+          </div>
+      </lightning-layout-item>
+    </lightning-layout>
+
+    <lightning-textarea 
+      class="slds-var-p-around_small"         
+      max-length="1000"
+      name="Description__c" 
+      label="Descrição Do Evento" 
+      placeholder="Faça uma breve descrição do evento."
+      onchange={handleValue}
+      required>
+    </lightning-textarea>
+      
+    <lightning-input-address
+      class="slds-var-p-around_small"
+      address-label="Endereço"
+      street-label="Rua"
+      city-label="Cidade"
+      country-label="País"
+      province-label="Estado"
+      postal-code-label="Cep"
+      postal-code="53700-000"
+      city="Itapissuma"
+      country={valueCountry}
+      province={valueProvince}
+      field-level-help="Você deve Inserir todas as informações do endereço." 
+      province-options={provinceOptions}
+      country-options={countryOptions}
+      onchange={handleAddress}
+      required>
+    </lightning-input-address>
+  </template>
 </template>

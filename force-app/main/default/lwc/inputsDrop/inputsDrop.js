@@ -14,7 +14,13 @@ export default class InputsDrop extends LightningElement {
     handleInputsForEach(event) {
         const index = event.target.dataset.index;
         const name = event.target.name;
-        this.inputs[index][name] = event.detail.value;
+        let value = event.detail.value;
+        this.inputs[index][name] = value;
+
+        if (name === 'Value_Drop__c') {
+            this.inputs[index][name] = Number(value);
+        }
+
         if (this.inputs[index].Date_Start__c && this.inputs[index].Date_Finish__c && this.inputs[index].Value_Drop__c !== 0) {
             this.handleSend();
         }
@@ -39,7 +45,6 @@ export default class InputsDrop extends LightningElement {
     }
 
     handleSend() {
-        console.log('c' + this.inputs);
         const value = new CustomEvent('valuedate', {
             detail: {
                 date: this.inputs

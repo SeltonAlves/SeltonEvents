@@ -155,9 +155,8 @@
     <externalSharingModel>ControlledByParent</externalSharingModel>
     <label>Stock</label>
     <nameField>
-        <displayFormat>S-{0000}</displayFormat>
         <label>Stock Name</label>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>Stocks</pluralLabel>
     <searchLayouts></searchLayouts>

@@ -1,7 +1,15 @@
 <template>
-  <lightning-card>
+  <template if:true={isLoading}>
+    <div class="slds-var-p-around_large">
+      <lightning-spinner 
+        alternative-text="Loading" 
+        size="large"
+        variant="brand"
+      ></lightning-spinner>
+    </div>
+  </template>
+  <template if:false={isLoading}>
     <lightning-layout>
-
       <lightning-layout-item padding="horizontal-small">
         <div>
             <lightning-input 
@@ -53,8 +61,7 @@
         </div>
       </lightning-layout-item>
     </lightning-layout>
-
     <c-add-stock stock={stockItemList} onvaluesotck = {handleValueStock}></c-add-stock>
     <c-inputs-drop onvaluedate = {handleValueDrop}></c-inputs-drop>
-  </lightning-card>  
+  </template>
 </template>
