@@ -1,17 +1,34 @@
 <!-- sldsValidatorIgnore -->
 <template>
-    <template if:true={isLoading}>
-        <lightning-datatable
-          key-field="id"
-          data={data}
-          columns={columns}
-        ></lightning-datatable>
-    </template>
-    <template if:false={isLoading}>
-        <lightning-spinner 
-          alternative-text="Loading" 
-          size="medium"
-          variant="brand"
-        ></lightning-spinner>
-    </template>
+    <div>
+      <template if:true={isLoading}>
+        <h2 class="slds-text-heading_small">Estoque:</h2>
+        <div>
+          <lightning-datatable
+            key-field="id"
+            data={dataStock}
+            columns={stockColumns}
+            hide-checkbox-column
+          ></lightning-datatable>
+        </div>
+        <div>
+          <h2 class="slds-text-heading_small slds-m-top_small">Date Drops:</h2>
+          <lightning-datatable
+            key-field="id"
+            data={dataDate}
+            columns={dateDropColumns}
+            hide-checkbox-column
+          ></lightning-datatable>
+        </div>
+      </template>
+      <template if:false={isLoading}>
+        <div class="slds-p-around_xx-large" >
+          <lightning-spinner 
+            alternative-text="Loading" 
+            size="medium"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </template>
+    </div>
 </template>

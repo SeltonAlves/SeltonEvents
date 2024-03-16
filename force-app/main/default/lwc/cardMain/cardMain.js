@@ -3,7 +3,7 @@ import { LightningElement, track } from 'lwc';
 export default class CardMain extends LightningElement {
 
     @track
-    stage = true;
+    stage = false;
     idEvent;
 
     handleClick() {

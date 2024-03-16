@@ -1,0 +1,18 @@
+<template>
+    <lightning-card title="Banner">
+      <div>
+        <template if:true={isLoading}>
+            <lightning-spinner 
+            alternative-text="Loading" 
+            size="xx-small"
+            variant="base"
+            ></lightning-spinner>
+        </template>
+        <template if:false={isLoading}>
+            <div class="slds-var-m-around_medium">
+                <img src={imageSrc} alt="Imagem">
+            </div>
+        </template>
+      </div>
+    </lightning-card>
+</template>

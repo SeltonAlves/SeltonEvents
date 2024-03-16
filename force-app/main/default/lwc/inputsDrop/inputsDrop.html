@@ -1,3 +1,4 @@
+<!-- sldsValidatorIgnore -->
 <template>
 
     <h3 class="slds-text-title_bold slds-var-m-horizontal_small slds-var-m-top_large">Datas De Drops</h3>
@@ -46,14 +47,15 @@
           </lightning-layout-item>
 
           <lightning-layout-item>
-            <div class="slds-var-m-around_large">
+            <div class="slds-var-m-top_large">
               <template if:true={item.canDelete}>
-                <lightning-button
-                  variant="destructive"
-                  onclick={deleteInputs} 
-                  icon-name="utility:delete"
-                  data-index={f}
-                ></lightning-button>
+                <lightning-button-icon
+                icon-name="utility:delete"
+                alternative-text="Excluir"
+                title="Excluir"
+                onclick={deleteInputs} 
+                data-index={f}
+                ></lightning-button-icon>
               </template>
             </div>
           </lightning-layout-item>

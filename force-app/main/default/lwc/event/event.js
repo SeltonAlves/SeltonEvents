@@ -80,7 +80,7 @@ export default class Event extends LightningElement {
             let fileContent = reader.result.split(',')[1];
             this.event['Banner'] = {
                 'fileName': this.fileName,
-                'fileContent': fileContent
+                'fileContent': encodeURIComponent(fileContent)
             }
         }
         reader.readAsDataURL(selectedFile);

@@ -67,4 +67,26 @@ public with sharing class Event {
         return true;
     }
     
+    @AuraEnabled(cacheable = false)
+    public static Map<String,String> getImageIdEvent (Id recordId){
+        try {
+
+            ContentDocumentLink cdl = [SELECT Id, ContentDocumentId, LinkedEntityId FROM ContentDocumentLink WHERE LinkedEntityId = :recordId];
+            Id contentDocumentId = cdl.ContentDocumentId;
+
+            ContentVersion cv = [SELECT VersionData,FileType ,ContentDocumentId FROM ContentVersion WHERE ContentDocumentId = :contentDocumentId];
+            String d = cv.FileType;
+            String base64Data = EncodingUtil.base64Encode(cv.VersionData);
+
+            Map<String, String> result = new Map<String, String>();
+            result.put('fileType', d);
+            result.put('Base64', base64Data);
+
+            return result;
+        } catch(Exception e) {
+            Map<String, String> error = new Map<String, String>();
+            error.put('error', e.getMessage());
+            return error;
+        }
+    }
 }
