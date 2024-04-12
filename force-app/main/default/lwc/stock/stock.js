@@ -61,20 +61,19 @@ export default class Stock extends LightningElement {
     handleSaveStock() {
         if (this.dateDropList.length > 0 && this.stockItemList.length > 0) {
 
+            window.scrollTo(0,0);
             this.isLoading = true;
 
             const stockItem = this.stockItemList.map(item => {
                 const { id, ...newStock } = item;
                 return newStock;
             });
-            console.log(JSON.stringify(stockItem));
 
             const dateDrop = this.dateDropList.map(item => {
                 const { id, canDelete, ...newDate } = item;
                 return newDate;
             });
 
-            console.log(JSON.stringify(dateDrop));
 
             this.id = this.id.split("-")[0]
 
@@ -83,6 +82,7 @@ export default class Stock extends LightningElement {
                 console.log(result);
                 if (result) {
                     this.isLoading = false;
+                    this.handleToast('FINALIZADO!','Parabéns você concluiu o cadastramento do evento e estoque','success');
                     this.handleSendStage(result);
                 }
             }).catch((err) => {

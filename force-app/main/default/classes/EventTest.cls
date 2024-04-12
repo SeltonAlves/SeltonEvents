@@ -19,7 +19,18 @@ private class EventTest {
         Id id = Event.createEvent(js);
         Test.stopTest();
         System.assertEquals(null, id, 'The event should not be created due to an exception');
+    }
 
+    @IsTest
+    static void getImgId(){
+        Map<String, String> result = new Map<String, String>();
+        result.put('fileType', 'scs');
+        result.put('Base64', 'adasd');
+        Test.startTest();
+      Map<String,String> eventResult = Event.getImageIdEvent('a02Hs000017e5uNIAQ');
+        Test.stopTest();
+        System.assertEquals(result,eventResult);
+        
     }
 
     private static String createJsonTrue(){

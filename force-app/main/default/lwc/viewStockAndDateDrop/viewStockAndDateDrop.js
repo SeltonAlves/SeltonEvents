@@ -33,7 +33,6 @@ export default class ViewStockAndDateDrop extends LightningElement {
             this.isLoading = true;
 
         }).catch((err) => {
-            console.log(err);
             this.handleToast('Erro!', 'Tente Novamente Mais Tarde.', 'erro')
         });
     }

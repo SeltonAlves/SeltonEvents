@@ -75,15 +75,22 @@ export default class Event extends LightningElement {
     handleAddFiles(event) {
         let selectedFile = event.target.files[0];
         this.fileName = selectedFile.name;
-        let reader = new FileReader();
-        reader.onload = () => {
-            let fileContent = reader.result.split(',')[1];
-            this.event['Banner'] = {
-                'fileName': this.fileName,
-                'fileContent': encodeURIComponent(fileContent)
+        let fileSize = selectedFile.size / (1024 * 1024);
+        if (fileSize < 5) {
+            let reader = new FileReader();
+            reader.onload = () => {
+                let fileContent = reader.result.split(',')[1];
+                this.event['Banner'] = {
+                    'fileName': this.fileName,
+                    'fileContent': encodeURIComponent(fileContent)
+                }
             }
+            reader.readAsDataURL(selectedFile);
+
         }
-        reader.readAsDataURL(selectedFile);
+        else {
+            this.handleToast('Error Imagem', 'O Tamanho da Sua Imagem é maior que 5 MB, Tente novamente com tamanho menor.', 'erro');
+        }
     }
 
     @api
@@ -94,6 +101,7 @@ export default class Event extends LightningElement {
                 return validSoFar && inputField.checkValidity();
             }, true);
         if (inputs) {
+            window.scrollTo(0, 0);
             this.isLoading = true;
             let json = JSON.stringify(this.event);
             createEvent({ eventJson: json }
@@ -110,6 +118,8 @@ export default class Event extends LightningElement {
                 this.isLoading = false;
                 this.handleToast('Aviso!', error, 'info');
             })
+        }else{
+            this.handleToast('Oops...','Preencha todos os campos, por favor!', 'warning')
         }
     }
 

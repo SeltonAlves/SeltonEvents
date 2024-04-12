@@ -17,11 +17,15 @@ export default class InputsDrop extends LightningElement {
         let value = event.detail.value;
         this.inputs[index][name] = value;
 
+        if (name === 'Date_Start__c') {
+            this.inputs[index]['minDate'] = value;
+        }
+
         if (name === 'Value_Drop__c') {
             this.inputs[index][name] = Number(value);
         }
 
-        if (this.inputs[index].Date_Start__c && this.inputs[index].Date_Finish__c && this.inputs[index].Value_Drop__c !== 0) {
+        if (this.inputs[index].Date_Start__c != null && this.inputs[index].Date_Finish__c != null  && this.inputs[index].Value_Drop__c !== 0) {
             this.handleSend();
         }
     }
