@@ -3,8 +3,10 @@ global class EventBatch implements Database.Batchable<sObject> {
     private static Map<String,String> mensage = new Map<String,String>();
 
     global Database.querylocator start(Database.BatchableContext BC) {
-        Date today = Date.today();
-       return Database.getQueryLocator([SELECT Id,Name,email__c,start_date__c FROM Party__c WHERE start_date__c <= :today]);
+        Datetime nowGtm = System.now();
+        String tz = UserInfo.getTimeZone().getID();
+        Datetime nowUserTime = nowGtm.addSeconds(TimeZone.getTimeZone(tz).getOffset(nowGtm) / 1000);
+        return Database.getQueryLocator([SELECT Id,Name,email__c,start_date__c FROM Party__c WHERE start_date__c <= :nowUserTime]);
     }
  
     global void execute(Database.BatchableContext BC, List<sObject> scope) {
